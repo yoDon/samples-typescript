@@ -2,6 +2,7 @@ import React from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { v4 as uuid4 } from 'uuid';
+import NoSSR from "../components/NoSSR";
 
 function fetchAPI(str, obj) {
   return fetch(str, obj)
@@ -50,7 +51,7 @@ export default function Bones() {
               async processes with high reliability.
             </p>
           </div>
-          <div>
+          <NoSSR>
             <div className="mt-10 w-64 flex flex-col lg:flex-row space-y-4 space-x-8">
               <pre className="font-mono bg-gray-50 p-4">
                 {JSON.stringify(
@@ -84,6 +85,8 @@ export default function Bones() {
                 Cancel Buy
               </button>
             </div>
+          </NoSSR>
+          <div>
             <p className="mt-4 text-xl text-gray-500">
               Find more{' '}
               <a className="text-blue-400" href="https://github.com/temporalio/samples-typescript">
