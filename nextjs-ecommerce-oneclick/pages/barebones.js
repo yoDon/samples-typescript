@@ -1,6 +1,7 @@
 import React from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { v4 as uuid4 } from 'uuid';
 
 function fetchAPI(str, obj) {
   return fetch(str, obj)
@@ -9,9 +10,9 @@ function fetchAPI(str, obj) {
 }
 
 export default function Bones() {
-  const [itemId, setItemId] = React.useState('item123');
+  const [itemId, setItemId] = React.useState('3');
   const [state, setState] = React.useState('null');
-  const [workflowId, setWFID] = React.useState(null);
+  const [workflowId, setWFID] = React.useState(uuid4());
   function onClick() {
     setState('sending...');
     fetchAPI('/api/startBuy', {
