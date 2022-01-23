@@ -137,7 +137,7 @@ function Product({ product }) {
   // purchasing the same product more than once
   // In more advanced scenarios you may want to persist this in LocalStorage or
   // in the backend to be able to resume this transaction.
-  const [transactionId, setTransactionId] = React.useState(uuid4());
+  const [workflowId, setWorkflowId] = React.useState(uuid4());
   const toastId = React.useRef(null);
   function buyProduct() {
     setState('SENDING');
@@ -146,7 +146,7 @@ function Product({ product }) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ itemId, transactionId }),
+      body: JSON.stringify({ itemId, workflowId }),
     }).then(() => {
       setState('ORDERED');
       toastId.current = toast.success('Purchased! Cancel if you change your mind', {
@@ -160,7 +160,7 @@ function Product({ product }) {
             setState('CONFIRMED');
           } else if (stateRef.current === 'CANCELLING') {
             setState('NEW');
-            setTransactionId(uuid4());
+            setWorkflowId(uuid4());
           }
         },
       });
@@ -176,7 +176,7 @@ function Product({ product }) {
   function cancelBuy() {
     if (state === 'ORDERED') {
       setState('CANCELLING');
-      fetchAPI('/api/cancelBuy?id=' + transactionId).catch((err) => {
+      fetchAPI('/api/cancelBuy?id=' + workflowId).catch((err) => {
         setState('ERROR');
         toast.error(err, {
           position: 'top-right',

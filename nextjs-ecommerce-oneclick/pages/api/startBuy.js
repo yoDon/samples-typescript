@@ -7,7 +7,7 @@ export default async function startBuy(req, res) {
     return;
   }
 
-  const { itemId, transactionId } = req.body;
+  const { itemId, workflowId } = req.body;
   if (!itemId) {
     res.status(405).send({ message: 'must send itemId to buy' });
     return;
@@ -21,7 +21,7 @@ export default async function startBuy(req, res) {
   // kick off the purchase async
   await client.start(OneClickBuy, {
     taskQueue: 'ecommerce-oneclick',
-    workflowId: transactionId,
+    workflowId,
     args: [itemId],
   });
 
