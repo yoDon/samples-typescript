@@ -147,23 +147,22 @@ function Product({ product }) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ itemId, workflowId }),
-    }).then(() => {
-      setState('ORDERED');
-      toastId.current = toast.success('Purchased! Cancel if you change your mind', {
-        position: 'top-right',
-        autoClose: 5000,
-        closeOnClick: true,
-        draggable: true,
-        onClose: () => {
-          console.log({ state: stateRef.current });
-          if (stateRef.current === 'ORDERED') {
-            setState('CONFIRMED');
-          } else if (stateRef.current === 'CANCELLING') {
-            setState('NEW');
-            setWorkflowId(uuid4());
-          }
-        },
-      });
+    });
+    setState('ORDERED');
+    toastId.current = toast.success('Purchased! Cancel if you change your mind', {
+      position: 'top-right',
+      autoClose: 5000,
+      closeOnClick: true,
+      draggable: true,
+      onClose: () => {
+        console.log({ state: stateRef.current });
+        if (stateRef.current === 'ORDERED') {
+          setState('CONFIRMED');
+        } else if (stateRef.current === 'CANCELLING') {
+          setState('NEW');
+          setWorkflowId(uuid4());
+        }
+      },
     });
   }
   // function getState() {
