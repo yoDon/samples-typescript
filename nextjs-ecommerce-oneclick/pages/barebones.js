@@ -19,7 +19,7 @@ export default function Bones() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ itemId }),
+      body: JSON.stringify({ itemId, workflowId }),
     })
       .then((x) => setWFID(x.workflowId))
       .then(() => setState('Purchased! Cancel if you change your mind'));
