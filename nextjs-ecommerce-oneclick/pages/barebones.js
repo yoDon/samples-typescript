@@ -23,8 +23,7 @@ export default function Bones() {
       },
       body: JSON.stringify({ itemId, workflowId }),
     })
-      .then((x) => setWFID(x.workflowId))
-      .then(() => setState('Purchased! Cancel if you change your mind'));
+      .then((x) => setState(x.workflowResult));
   }
   function getState() {
     if (workflowId) {
